@@ -2,9 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import DashboardTecnico from "../componentes/DashboardTecnico";
 import DashboardAdmin from "../componentes/DashboardAdmin";
-import DashboardGerente from "../componentes/DashboardGerente";
+import DashboardComum from "../componentes/DashboardComum";
 import styles from "./page.module.css";
 
 export default function DashboardPage(){
@@ -30,7 +29,7 @@ export default function DashboardPage(){
         if( userRole === "Administrador"){
             return <DashboardAdmin />;
         } else {
-            return <div><h2>Dashboard Usuário Comum</h2><p>Funcionalidades para usuários comuns aqui.</p></div>;
+            return <DashboardComum />;
         }
     };
 

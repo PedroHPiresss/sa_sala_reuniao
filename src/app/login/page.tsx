@@ -31,6 +31,7 @@ export default function LoginPage() {
                 // armazenar as informações do usuário no localStorage
                 localStorage.setItem("token", data.token);
                 localStorage.setItem("userRole", data.usuario?.tipo || "");
+                localStorage.setItem("userId", data.usuario?.id || "");
                 router.push("/dashboard"); // redireciona para a pagina principal após o login bem-sucedido
             } else {
                 // data.error may be an object/string depending on the API

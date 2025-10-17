@@ -18,41 +18,15 @@
   padding-bottom: 5px;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table th,
-.table td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: left;
-}
-
-.table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  color: #333;
-}
-
-.table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.table tbody tr:hover {
-  background-color: #e9ecef;
-}
-
 .form {
   margin-bottom: 20px;
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
+.form select,
 .form input {
   padding: 8px;
   border: 1px solid #ccc;
@@ -61,7 +35,7 @@
 
 .form button {
   padding: 8px 12px;
-  background-color: #007bff;
+  background-color: #28a745;
   color: white;
   border: none;
   border-radius: 4px;
@@ -69,5 +43,5 @@
 }
 
 .form button:hover {
-  background-color: #0056b3;
+  background-color: #218838;
 }

@@ -2,9 +2,13 @@
 import connectMongo from "@/services/mongodb";
 import Reserva, { IReserva } from "../models/reserva";
 
-export const getReservas = async () => {
+export const getReservas = async (filters: { status?: string; data?: string; usuarioId?: string } = {}) => {
   await connectMongo();
-  const reservas = await Reserva.find({}).populate('usuarioId').populate('salaId');
+  const query: any = {};
+  if (filters.status) query.status = filters.status;
+  if (filters.data) query.data = filters.data;
+  if (filters.usuarioId) query.usuarioId = filters.usuarioId;
+  const reservas = await Reserva.find(query).populate('usuarioId').populate('salaId');
   return reservas;
 };
 
@@ -46,5 +50,20 @@ export const updateReserva = async (id: string, data: Partial<IReserva>) => {
 
 export const deleteReserva = async (id: string) => {
   await connectMongo();
-  await Reserva.findByIdAndDelete(id);
+  const deleted = await Reserva.findByIdAndDelete(id);
+  return deleted;
+};
+
+export const cancelReserva = async (id: string, usuarioId: string) => {
+  await connectMongo();
+  const reserva = await Reserva.findById(id);
+  if (!reserva) {
+    throw new Error("Reserva não encontrada");
+  }
+  if (reserva.usuarioId.toString() !== usuarioId) {
+    throw new Error("Apenas o criador da reserva pode cancelá-la");
+  }
+  reserva.status = "Cancelada";
+  await reserva.save();
+  return reserva;
 };

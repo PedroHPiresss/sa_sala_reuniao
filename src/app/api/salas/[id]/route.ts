@@ -8,7 +8,7 @@ interface Parametro{
 }
 
 //PATCH
-export async function PATCH(req: NextRequest, {params}:{params:Parametro}){
+export async function PATCH(req: NextRequest, { params }: { params: Parametro }){
     try {
         const {id} = params;
         const data = await req.json();
@@ -23,7 +23,7 @@ export async function PATCH(req: NextRequest, {params}:{params:Parametro}){
 }
 
 //GET(one)
-export async function GET ({params}:{params:Parametro}){
+export async function GET (req: NextRequest, { params }: { params: Parametro }){
     try {
         const {id} = params;
         const data = await getSalaById(id);
@@ -37,13 +37,13 @@ export async function GET ({params}:{params:Parametro}){
 }
 
 //DELETE
-export async function DELETE({params}:{params:Parametro}) {
+export async function DELETE(req: NextRequest, { params }: { params: Parametro }) {
     try {
         const {id} = params;
         await deleteSala(id);
-        return NextResponse.json({success: true, data:{}});
+        return NextResponse.json({success: true, message: "Sala deletada com sucesso"});
 
     } catch (error) {
-        return NextResponse.json({success:false, error:error});
+        return NextResponse.json({success:false, error: error instanceof Error ? error.message : "Erro ao deletar sala"});
     }
 }
