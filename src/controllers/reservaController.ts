@@ -50,8 +50,15 @@ export const updateReserva = async (id: string, data: Partial<IReserva>) => {
 
 export const deleteReserva = async (id: string) => {
   await connectMongo();
-  const deleted = await Reserva.findByIdAndDelete(id);
-  return deleted;
+  const reserva = await Reserva.findById(id);
+  if (!reserva) {
+    throw new Error("Reserva não encontrada");
+  }
+  if (reserva.status !== "Cancelada") {
+    throw new Error("Apenas reservas canceladas podem ser deletadas permanentemente");
+  }
+  await Reserva.findByIdAndDelete(id);
+  return reserva;
 };
 
 export const cancelReserva = async (id: string, usuarioId?: string) => {
