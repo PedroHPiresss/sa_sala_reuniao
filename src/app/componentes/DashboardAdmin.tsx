@@ -123,7 +123,7 @@ export default function DashboardAdmin() {
       const res = await fetch(`/api/reservas/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "Cancelada" }),
+        body: JSON.stringify({ status: "Cancelada" }), // Sem usuarioId para administrador
       });
       const data = await res.json();
       if (data.success) {

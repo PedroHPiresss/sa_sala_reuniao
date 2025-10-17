@@ -54,13 +54,13 @@ export const deleteReserva = async (id: string) => {
   return deleted;
 };
 
-export const cancelReserva = async (id: string, usuarioId: string) => {
+export const cancelReserva = async (id: string, usuarioId?: string) => {
   await connectMongo();
   const reserva = await Reserva.findById(id);
   if (!reserva) {
     throw new Error("Reserva não encontrada");
   }
-  if (reserva.usuarioId.toString() !== usuarioId) {
+  if (usuarioId && reserva.usuarioId.toString() !== usuarioId) {
     throw new Error("Apenas o criador da reserva pode cancelá-la");
   }
   reserva.status = "Cancelada";

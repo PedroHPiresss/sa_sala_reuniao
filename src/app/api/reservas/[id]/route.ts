@@ -15,10 +15,7 @@ export async function PATCH(req: NextRequest, {params}:{params:Promise<Parametro
         const data = await req.json();
         let ReservaAtualizada;
         if (data.status === "Cancelada") {
-            const usuarioId = data.usuarioId;
-            if (!usuarioId) {
-                return NextResponse.json({success:false, error: "usuarioId necessário para cancelar reserva"});
-            }
+            const usuarioId = data.usuarioId; // usuarioId é opcional agora
             ReservaAtualizada = await cancelReserva(id, usuarioId);
         } else {
             ReservaAtualizada = await updateReserva(id, data);
